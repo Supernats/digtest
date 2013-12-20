@@ -8,7 +8,33 @@
 </head>
 <body>
 
+<% if flash.now[:errors] %>
+<ul>
+  <% flash.now[:errors].each do |err| %>
+
+  <li><%= err %></li>
+
+  <% end %>
+</ul>
+<% end %>
+
 <%= yield %>
 
+
+<br><br>
+<% if logged_in? %>
+  Current User: <%= current_user.username %>
+  <%= button_to "Sign Out", session_url, :method => :delete %>
+
+<% else %>
+  <% unless request.url == new_session_url %>
+    <%= button_to "Sign In", new_session_url, :method => :get %>
+  <% end %>
+
+  <% unless request.url == new_user_url %>
+    <%= button_to "Sign Up", new_user_url, :method => :get %>
+  <% end %>
+
+<% end %>
 </body>
 </html>
