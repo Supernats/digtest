@@ -43,6 +43,15 @@ class User < ActiveRecord::Base
     BCrypt::Password.new(self.password_digest).is_password?(pt)
   end
 
+  def make_cheer!(goal)
+    if self.cheer_count > 0
+      Cheer.create!(:goal_id => goal.id, :cheerleader_id => self.id)
+      self.cheer_count -= 1
+    else
+      raise "Insufficient cheers"
+    end
+  end
+
   def password=(pt)
     @password = pt
     self.password_digest = BCrypt::Password.create(pt)

@@ -8,15 +8,23 @@
 </head>
 <body>
 
-<% if flash.now[:errors] %>
+<% if flash[:notices] %>
 <ul>
-  <% flash.now[:errors].each do |err| %>
-
-  <li><%= err %></li>
-
+  <% flash[:notices].each do |notice| %>
+  <li><%= notice %></li>
   <% end %>
 </ul>
 <% end %>
+
+
+<% if flash.now[:errors] %>
+<ul>
+  <% flash.now[:errors].each do |err| %>
+  <li><%= err %></li>
+  <% end %>
+</ul>
+<% end %>
+
 
 <%= yield %>
 

@@ -51,6 +51,9 @@ describe "viewing a goal" do
     visit goals_url
     expect(page).to have_content("Sign In")
   end
+
+  it "shows goals' cheers"
+
 end
 
 
@@ -71,7 +74,6 @@ describe "editing a goal" do
   end
 
 end
-
 
 describe "removing a goal" do
   before(:each) do

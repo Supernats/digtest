@@ -55,6 +55,13 @@ def create_a_public_goal(str)
   click_button "Create Goal"
 end
 
+def create_a_cheer_on_goal(goal_name, user_name)
+  @goal = Goal.find_by_name(goal_name)
+  @user = User.find_by_username(user_name)
+  visit goal_url(@goal)
+  click_button "Cheer Goal"
+end
+
 def create_a_private_goal(str)
   visit new_goal_url
   fill_in "goal_name", :with => str

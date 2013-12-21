@@ -1,6 +1,6 @@
 class GoalsController < ApplicationController
 
-  before_filter :authenticate, :only => [:create, :new, :edit, :update, :index]
+  before_filter :authenticate
 
   def create
     params[:goal][:owner_id] = current_user.id
