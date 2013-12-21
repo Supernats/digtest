@@ -1,11 +1,29 @@
+# == Schema Information
+#
+# Table name: users
+#
+#  id              :integer          not null, primary key
+#  username        :string(255)      not null
+#  password_digest :string(255)      not null
+#  session_token   :string(255)      not null
+#  cheer_count     :integer          not null
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#
+
 class User < ActiveRecord::Base
-  attr_accessible :password, :username
+  attr_accessible :password, :username, :cheer_count
   attr_reader :password
 
   validates :password_digest, :username, :session_token, :presence =>true
   validates :password, :length => { :minimum => 6 }, :on => :create
 
-  before_validation :reset_session_token
+  before_validation :reset_session_token, :set_initial_cheer_count
+
+  has_many :created_goals, :class_name => "Goal", :foreign_key => "owner_id"
+  has_many :cheers, :class_name => "Cheer", :foreign_key => "cheerleader_id"
+
+  has_many :cheered_goals, :through => :cheers, :source => :goal
 
   def self.find_by_credentials(usr, pas)
     user = User.find_by_username(usr)
@@ -15,6 +33,10 @@ class User < ActiveRecord::Base
 
   def self.generate_token
     SecureRandom.urlsafe_base64
+  end
+
+  def set_initial_cheer_count(count = 10)
+    self.cheer_count = count
   end
 
   def is_password?(pt)

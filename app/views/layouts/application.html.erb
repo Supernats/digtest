@@ -24,7 +24,14 @@
 <br><br>
 <% if logged_in? %>
   Current User: <%= current_user.username %>
-  <%= button_to "Sign Out", session_url, :method => :delete %>
+
+  <table><tr>
+  <td><%= button_to "Sign Out", session_url, :method => :delete %></td>
+  <td><%= button_to "View Goals", goals_url, :method => :get %></td>
+  <% unless request.url == new_goal_url %>
+    <td><%= button_to "Create Goal", new_goal_url, :method => :get %></td>
+  <% end %>
+</tr></table>
 
 <% else %>
   <% unless request.url == new_session_url %>

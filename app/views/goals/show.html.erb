@@ -1,0 +1,13 @@
+<h2><%= @goal.name %></h2>
+
+
+
+<% if @cheers %>
+<ul>
+  <% @cheers.each do |ch| %>
+
+  Cheer from <%= ch.cheerleader_id %> !
+
+  <% end %>
+</ul>
+<% end %>

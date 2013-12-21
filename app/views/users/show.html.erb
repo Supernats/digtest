@@ -1,0 +1,7 @@
+<h2><%= @user.username %></h2>
+
+<% if @user.created_goals %>
+  <% @user.created_goals.each do |goal| %>
+    <%= link_to(goal.name, goal_url(goal)) %><br>
+  <% end %>
+<% end %>

@@ -38,9 +38,26 @@ RSpec.configure do |config|
   config.order = "random"
 end
 
-def sign_up_as_jane_doe
+def sign_up_as_test_user(str)
   visit new_user_url
-  fill_in "username", :with => "jane_doe"
+  fill_in "username", :with => str
   fill_in "password", :with => "password"
   click_button "Sign Up"
+end
+
+def logout_test_user
+  click_button "Sign Out"
+end
+
+def create_a_public_goal(str)
+  visit new_goal_url
+  fill_in "goal_name", :with => str
+  click_button "Create Goal"
+end
+
+def create_a_private_goal(str)
+  visit new_goal_url
+  fill_in "goal_name", :with => str
+  choose("private")
+  click_button "Create Goal"
 end

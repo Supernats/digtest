@@ -1,0 +1,11 @@
+<h2>My Goals</h2>
+
+<% if @created_goals %>
+
+  <% @created_goals.each do |g| %>
+
+  <%= link_to g.name, goal_url(g) %>
+
+  <% end %>
+
+<% end %>

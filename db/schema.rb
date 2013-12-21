@@ -11,12 +11,35 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131220183857) do
+ActiveRecord::Schema.define(:version => 20131220213803) do
+
+  create_table "cheers", :force => true do |t|
+    t.integer  "cheerleader_id", :null => false
+    t.integer  "goal_id",        :null => false
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+  end
+
+  add_index "cheers", ["cheerleader_id"], :name => "index_cheers_on_cheerleader_id"
+
+  create_table "goals", :force => true do |t|
+    t.string   "name",                      :null => false
+    t.date     "end_date"
+    t.date     "start_date"
+    t.integer  "owner_id",                  :null => false
+    t.integer  "public",     :default => 1
+    t.integer  "completed",  :default => 0
+    t.datetime "created_at",                :null => false
+    t.datetime "updated_at",                :null => false
+  end
+
+  add_index "goals", ["owner_id"], :name => "index_goals_on_owner_id"
 
   create_table "users", :force => true do |t|
     t.string   "username",        :null => false
     t.string   "password_digest", :null => false
     t.string   "session_token",   :null => false
+    t.integer  "cheer_count",     :null => false
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
   end
