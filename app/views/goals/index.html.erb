@@ -4,7 +4,10 @@
 
   <% @created_goals.each do |g| %>
 
-  <%= link_to g.name, goal_url(g) %>
+  <table><tr>
+  <td><%= link_to g.name, goal_url(g) %></td>
+  <td><%= button_to "Remove Goal", goal_url(g), :method => :delete %></td>
+  </tr></table>
 
   <% end %>
 

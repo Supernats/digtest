@@ -69,15 +69,23 @@ describe "editing a goal" do
     expect(page).to have_content("Forget Ruby")
     expect(page).to have_no_content("Learn Ruby")
   end
-  it "can only update your own goals"
 
 end
 
 
 describe "removing a goal" do
-  # can remove a goal
-  # can only remove your own goals
-  # removes dependent cheers --> :dependent => :destroy (on has_many assoc)
+  before(:each) do
+    sign_up_as_test_user("jane_doe")
+    create_a_public_goal("Learn Ruby")
+  end
+
+  it "can remove a goal" do
+    visit goals_url
+    click_button "Remove Goal"
+    expect(page).to have_no_content("Learn Ruby")
+  end
+
+  it "removes dependent cheers" # --> :dependent => :destroy (on has_many assoc)
 
 end
 
