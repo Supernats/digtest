@@ -20,6 +20,8 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
+    @public_goals = @user.public_goals
+    @private_goals = @user.private_goals
     render :show
   end
 end

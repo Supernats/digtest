@@ -58,6 +58,12 @@ end
 def create_a_private_goal(str)
   visit new_goal_url
   fill_in "goal_name", :with => str
-  choose("private")
+  choose("goal_private")
   click_button "Create Goal"
+end
+
+def edit_goal_name(str, goal_id)
+  visit edit_goal_url(goal_id)
+  fill_in "goal_name", :with => str
+  click_button("Update Goal")
 end

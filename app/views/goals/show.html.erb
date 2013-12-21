@@ -1,6 +1,6 @@
 <h2><%= @goal.name %></h2>
 
-
+<%= button_to "Edit Goal", edit_goal_url(@goal), :method => :get %>
 
 <% if @cheers %>
 <ul>

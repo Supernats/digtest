@@ -48,6 +48,14 @@ class User < ActiveRecord::Base
     self.password_digest = BCrypt::Password.create(pt)
   end
 
+  def private_goals
+    @private_goals ||= self.created_goals.where("public = 0")
+  end
+
+  def public_goals
+    @public_goals ||= self.created_goals.where("public = 1")
+  end
+
   def reset_session_token
     self.session_token = User.generate_token
   end
