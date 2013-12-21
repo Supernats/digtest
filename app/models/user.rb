@@ -18,7 +18,8 @@ class User < ActiveRecord::Base
   validates :password_digest, :username, :session_token, :presence =>true
   validates :password, :length => { :minimum => 6 }, :on => :create
 
-  before_validation :reset_session_token, :set_initial_cheer_count
+  before_validation :reset_session_token
+  before_validation :set_initial_cheer_count, :on => :create
 
   has_many :created_goals, :class_name => "Goal", :foreign_key => "owner_id"
   has_many :cheers, :class_name => "Cheer", :foreign_key => "cheerleader_id"
@@ -46,7 +47,8 @@ class User < ActiveRecord::Base
   def make_cheer!(goal)
     if self.cheer_count > 0
       Cheer.create!(:goal_id => goal.id, :cheerleader_id => self.id)
-      self.cheer_count -= 1
+      self.cheer_count= self.cheer_count - 1
+      self.save
     else
       raise "Insufficient cheers"
     end

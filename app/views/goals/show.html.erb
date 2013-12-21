@@ -2,8 +2,9 @@
 
 <%= button_to "Edit Goal", edit_goal_url(@goal), :method => :get %>
 
-<%= button_to "Cheer Goal", goal_cheers_url(@goal) %>
-
+<% unless @goal.owner == current_user %>
+  <%= button_to "Cheer Goal", goal_cheers_url(@goal) %>
+<% end %>
 
 <% if @cheers %>
 <ul>
